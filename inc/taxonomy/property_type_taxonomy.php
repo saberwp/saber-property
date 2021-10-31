@@ -45,7 +45,6 @@ function property_type_taxonomy_register() {
 	);
 
 	register_taxonomy( 'property_type', array( 'property' ), $args );
-	register_taxonomy_for_object_type( 'property_type', 'property' );
 
 }
 add_action( 'init', 'property_type_taxonomy_register', 1 );

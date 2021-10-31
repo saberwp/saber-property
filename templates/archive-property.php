@@ -1,18 +1,3 @@
-<?php
-
-$posts = sapr_fetch_all_properties();
-foreach( $posts as $post ) { ?>
-
-  <h2><?php print $post->post_title; ?></h2>
-
-<?php }
-die();
-
-
-
-
-?>
-
 <?php get_header(); ?>
 
 <div style="max-width: 1200px; margin: 40px auto;">
@@ -34,10 +19,21 @@ die();
 
         $featuredImage = get_the_post_thumbnail( $post->ID );
 
+        $property_types = get_the_terms( $post->ID, 'property_type' );
+
       ?>
 
       <div class="property-single-container">
 
+        <?php
+
+          if( !empty( $property_types )) {
+
+            print '<h3>' . $property_types[0]->name . '</h3>';
+
+          }
+
+        ?>
         <h5><?php print $city; ?></h5>
         <h2><?php print $post->post_title; ?></h2>
         <div style="max-width: 200px;">
