@@ -27,6 +27,9 @@ class Plugin {
 
   function __construct() {
 
+    // Include functional API.
+    require_once( SABER_PROPERTY_PATH . 'inc/property-query.php' );
+
     // Property Field Support.
     require_once( SABER_PROPERTY_PATH . 'blocks/property-meta-input/property-meta-input.php' );
     require_once( SABER_PROPERTY_PATH . 'inc/property-field-cpt.php' );
@@ -40,6 +43,9 @@ class Plugin {
 
     $this->propertySingleTemplateLoader();
     $this->propertyArchiveTemplateLoader();
+
+    // Property Taxonomy Registries.
+    require_once( SABER_PROPERTY_PATH . 'inc/taxonomy/property_type_taxonomy.php' );
 
     // Meta register.
     register_post_meta( 'property', 'property_bedrooms', array(

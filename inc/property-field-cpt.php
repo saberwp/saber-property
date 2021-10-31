@@ -54,9 +54,9 @@ function register_post_type_property_field() {
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
 		'template'              => array(
-			// array( 'saber-property/property-field', [] )
+			array( 'saber-property/property-field', [] )
 		),
-		'template_lock'         => false
+		'template_lock'         => true
 	);
 
 	register_post_type( 'property_field', $args );
