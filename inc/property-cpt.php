@@ -4,6 +4,34 @@
 
 function register_post_type_property() {
 
+	// Get registered custom property fields.
+	$propertyFieldPosts = get_posts( array(
+		'post_type'   => 'property_field',
+		'numberposts' => -1
+	) );
+
+	$fields = array();
+	foreach( $propertyFieldPosts as $fieldPost ) {
+		$field = new \stdClass;
+		$field->key = get_post_meta( $fieldPost->ID, '_field_key', 1 );
+		$field->label = get_post_meta( $fieldPost->ID, '_field_label', 1 );
+		$field->title = $fieldPost->post_title;
+		$field->postId = $fieldPost->ID;
+		$field->propTest = 187;
+		$fields[] = $field;
+	}
+
+	// Make Gutenberg template array for property post.
+	$propertyPostGutenbergTemplate = array();
+
+	foreach( $fields as $field ) {
+
+		$propertyPostGutenbergTemplate[] = array( 'saber-property/property-meta-input', [
+			'field' => $field
+		]);
+
+	}
+
 	$labels = array(
 		'name'                  => _x( 'Properties', 'Post Type General Name', 'saber-property' ),
 		'singular_name'         => _x( 'Property', 'Post Type Singular Name', 'saber-property' ),
@@ -43,16 +71,35 @@ function register_post_type_property() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
-		'menu_position'         => 10,
+		'menu_position'         => 11.55555555,
 		'show_in_admin_bar'     => true,
+		'show_in_rest'          => true,
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
 		'has_archive'           => 'properties',
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
+		'template'              => $propertyPostGutenbergTemplate,
+		'template_lock'         => 'all'
 	);
+
 	register_post_type( 'property', $args );
+
+
+	// Register meta field for each field registered.
+	foreach( $fields as $field ) {
+
+		register_post_meta( 'property', $field->key, array(
+      'show_in_rest'  => true,
+      'single'        => true,
+      'type'          => 'string',
+      'auth_callback' => function() {
+        return current_user_can( 'edit_posts' );
+      }
+    ) );
+
+	}
 
 }
 add_action( 'init', 'register_post_type_property', 0 );

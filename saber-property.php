@@ -25,15 +25,87 @@ define( 'SABER_PROPERTY_TEXT_DOMAIN', 'saber-property' );
 
 class Plugin {
 
-
   function __construct() {
 
-    require_once( SABER_PROPERTY_PATH . 'inc/cpt.php' );
+    // Property Field Support.
+    require_once( SABER_PROPERTY_PATH . 'blocks/property-meta-input/property-meta-input.php' );
+    require_once( SABER_PROPERTY_PATH . 'inc/property-field-cpt.php' );
+    require_once( SABER_PROPERTY_PATH . 'blocks/property-field/property-field.php' );
+    $this->propertyFieldSingleTemplateLoader();
+
+    // Property Post Support.
+
+    require_once( SABER_PROPERTY_PATH . 'inc/property-cpt.php' );
+    require_once( SABER_PROPERTY_PATH . 'blocks/property-meta-bedrooms/property-meta-bedrooms.php' );
+
+    $this->propertySingleTemplateLoader();
+    $this->propertyArchiveTemplateLoader();
+
+    // Meta register.
+    register_post_meta( 'property', 'property_bedrooms', array(
+      'show_in_rest'  => true,
+      'single'        => true,
+      'type'          => 'string',
+      'auth_callback' => function() {
+        return current_user_can( 'edit_posts' );
+      }
+    ) );
 
   }
 
+  function propertyFieldSingleTemplateLoader() {
 
+    // Check usage notes at https://developer.wordpress.org/reference/hooks/type_template/.
 
+    add_filter( "single_template", function( $template, $type ) {
+
+      global $post;
+      if ( 'property_field' !== $post->post_type ) {
+        return $template;
+      }
+
+      // Do override.
+      return SABER_PROPERTY_PATH . 'templates/single-property-field.php';
+
+    }, 10, 2 );
+
+  }
+
+  function propertySingleTemplateLoader() {
+
+    // Check usage notes at https://developer.wordpress.org/reference/hooks/type_template/.
+
+    add_filter( "single_template", function( $template, $type ) {
+
+      global $post;
+      if ( 'property' !== $post->post_type ) {
+        return $template;
+      }
+
+      // Do override.
+      return SABER_PROPERTY_PATH . 'templates/single-property.php';
+
+    }, 10, 2 );
+
+  }
+
+  function propertyArchiveTemplateLoader() {
+
+    // Check usage notes at https://developer.wordpress.org/reference/hooks/type_template/.
+
+    add_filter( "archive_template", function( $template, $type ) {
+
+      global $post;
+      if ( 'property' !== $post->post_type ) {
+        return $template;
+      }
+
+      // Do override.
+      return SABER_PROPERTY_PATH . 'templates/archive-property.php';
+
+    }, 10, 2 );
+
+  }
 
 }
 

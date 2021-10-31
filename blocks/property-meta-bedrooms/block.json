@@ -1,0 +1,16 @@
+{
+	"apiVersion": 2,
+	"name": "create-block/property-meta-bedrooms",
+	"version": "0.1.0",
+	"title": "Property Meta Bedrooms",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "property-meta-bedrooms",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

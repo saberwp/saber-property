@@ -1,0 +1,16 @@
+{
+	"apiVersion": 2,
+	"name": "saber-property/property-field",
+	"version": "0.1.0",
+	"title": "Property Field",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Provides a custom property field block for addition to the property record.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "saber-property",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

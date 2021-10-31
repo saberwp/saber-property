@@ -1,0 +1,16 @@
+{
+	"apiVersion": 2,
+	"name": "saber-property/property-meta-input",
+	"version": "0.1.0",
+	"title": "Property Meta Input",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "property-meta-input",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
