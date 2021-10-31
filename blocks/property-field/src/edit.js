@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { TextControl } from '@wordpress/components';
+import { TextControl, SelectControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { useBlockProps } from '@wordpress/block-editor';
@@ -24,6 +24,11 @@ export default function Edit() {
     setMeta( { ...meta, _field_label: newValue } );
   }
 
+  const fieldTypeValue = meta[ '_field_type' ];
+  function updateFieldType( newValue ) {
+    setMeta( { ...meta, _field_type: newValue } );
+  }
+
 	return (
 		<div {...useBlockProps()}>
       <TextControl
@@ -35,6 +40,16 @@ export default function Edit() {
         label="Field Label"
         value={ fieldLabelValue }
         onChange={ updateFieldLabel }
+      />
+      <SelectControl
+        label="Field Type"
+        value={ fieldTypeValue }
+        options={ [
+          { label: 'Text', value: 'text' },
+          { label: 'Select', value: 'select' },
+          { label: 'Big Text', value: 'big_text' },
+        ] }
+        onChange={ updateFieldType }
       />
 		</div>
 	);

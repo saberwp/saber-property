@@ -57,6 +57,19 @@ class Plugin {
       }
     ) );
 
+    // Enqueue front-end scripts.
+    add_action( 'wp_enqueue_scripts', function() {
+
+      wp_enqueue_style(
+        'saber-property-flaticons',
+        SABER_PROPERTY_URL . 'assets/flaticon/font/flaticon.css',
+        array(),
+        '1.0',
+        'all'
+      );
+
+    });
+
   }
 
   function propertyFieldSingleTemplateLoader() {

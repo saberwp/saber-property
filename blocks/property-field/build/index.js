@@ -52,6 +52,14 @@ function Edit() {
     });
   }
 
+  const fieldTypeValue = meta['_field_type'];
+
+  function updateFieldType(newValue) {
+    setMeta({ ...meta,
+      _field_type: newValue
+    });
+  }
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
     label: "Field Key",
     value: fieldKeyValue,
@@ -60,6 +68,20 @@ function Edit() {
     label: "Field Label",
     value: fieldLabelValue,
     onChange: updateFieldLabel
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+    label: "Field Type",
+    value: fieldTypeValue,
+    options: [{
+      label: 'Text',
+      value: 'text'
+    }, {
+      label: 'Select',
+      value: 'select'
+    }, {
+      label: 'Big Text',
+      value: 'big_text'
+    }],
+    onChange: updateFieldType
   }));
 }
 
